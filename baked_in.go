@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"os"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 	"sync"
@@ -116,6 +117,8 @@ var (
 		"hsla":                    isHSLA,
 		"e164":                    isE164,
 		"email":                   isEmail,
+		"chinese_telephone":       isChineseTelephone,
+		"chinese_mobilephone":     isChineseMobilephone,
 		"url":                     isURL,
 		"uri":                     isURI,
 		"urn_rfc2141":             isUrnRFC2141, // RFC 2141
@@ -1306,6 +1309,16 @@ func isE164(fl FieldLevel) bool {
 // IsEmail is the validation function for validating if the current field's value is a valid email address.
 func isEmail(fl FieldLevel) bool {
 	return emailRegex.MatchString(fl.Field().String())
+}
+
+// isChineseTelephone is the validation function for validating if the current field's value is a valid chinese telephone number.
+func isChineseTelephone(fl FieldLevel) bool {
+	return regexp.MustCompile(`^0\d{2,3}-{0,1}[1-9]\d{6,7}$`).Match([]byte(fl.Field().String()))
+}
+
+// isChineseMobilephone is the validation function for validating if the current field's value is a valid chinese mobilephone number.
+func isChineseMobilephone(fl FieldLevel) bool {
+	return regexp.MustCompile(`^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$`).Match([]byte(fl.Field().String()))
 }
 
 // IsHSLA is the validation function for validating if the current field's value is a valid HSLA color.

@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-playground/locales"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-playground/validator/v10"
+	"github.com/oldfritter/validator/v10"
 )
 
 // RegisterDefaultTranslations registers a set of default translations
@@ -1051,6 +1051,16 @@ func RegisterDefaultTranslations(v *validator.Validate, trans ut.Translator) (er
 		{
 			tag:         "email",
 			translation: "{0} debe ser una dirección de correo electrónico válida",
+			override:    false,
+		},
+		{
+			tag:         "chinese_telephone",
+			translation: "{0} debe ser un número de teléfono fijo válido de China",
+			override:    false,
+		},
+		{
+			tag:         "chinese_mobilephone",
+			translation: "{0} debe ser un número de teléfono móvil válido de China",
 			override:    false,
 		},
 		{

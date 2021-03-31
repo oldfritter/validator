@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-playground/locales"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-playground/validator/v10"
+	"github.com/oldfritter/validator/v10"
 )
 
 // RegisterDefaultTranslations registers a set of default translations
@@ -1325,8 +1325,8 @@ func RegisterDefaultTranslations(v *validator.Validate, trans ut.Translator) (er
 			tag:         "json",
 			translation: "{0} must be a valid json string",
 			override:    false,
-    },
-    {
+		},
+		{
 			tag:         "lowercase",
 			translation: "{0} must be a lowercase string",
 			override:    false,

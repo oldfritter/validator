@@ -1,4 +1,4 @@
-package zh
+package zh_CN
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/go-playground/assert/v2"
 	zhongwen "github.com/go-playground/locales/zh"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-playground/validator/v10"
+	"github.com/oldfritter/validator/v10"
 )
 
 func TestTranslations(t *testing.T) {

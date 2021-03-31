@@ -1,4 +1,4 @@
-package zh_tw
+package zh_TW
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-playground/locales"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-playground/validator/v10"
+	"github.com/oldfritter/validator/v10"
 )
 
 // RegisterDefaultTranslations registers a set of default translations
@@ -1039,6 +1039,16 @@ func RegisterDefaultTranslations(v *validator.Validate, trans ut.Translator) (er
 		{
 			tag:         "email",
 			translation: "{0}必須是一個有效的信箱",
+			override:    false,
+		},
+		{
+			tag:         "chinese_telephone",
+			translation: "{0}必須是一個有效的中國大陸固定電話號碼",
+			override:    false,
+		},
+		{
+			tag:         "chinese_mobilephone",
+			translation: "{0}必須是一個有效的中國大陸行動電話號碼",
 			override:    false,
 		},
 		{
