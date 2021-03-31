@@ -116,6 +116,8 @@ var (
 		"hsla":                    isHSLA,
 		"e164":                    isE164,
 		"email":                   isEmail,
+		"chinese_telephone":       isChineseTelephone,
+		"chinese_mobilephone":     isChineseMobilephone,
 		"url":                     isURL,
 		"uri":                     isURI,
 		"urn_rfc2141":             isUrnRFC2141, // RFC 2141
@@ -2282,4 +2284,14 @@ func isIso3166AlphaNumeric(fl FieldLevel) bool {
 		panic(fmt.Sprintf("Bad field type %T", field.Interface()))
 	}
 	return iso3166_1_alpha_numeric[code]
+}
+
+// isChineseTelephone is the validation function for validating if the current field's value is a valid chinese telephone number.
+func isChineseTelephone(fl FieldLevel) bool {
+	return chineseTelephoneRegex.MatchString(fl.Field().String())
+}
+
+// isChineseMobilephone is the validation function for validating if the current field's value is a valid chinese mobilephone number.
+func isChineseMobilephone(fl FieldLevel) bool {
+	return chineseMobilephone.MatchString(fl.Field().String())
 }

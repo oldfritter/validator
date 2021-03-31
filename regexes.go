@@ -49,6 +49,8 @@ const (
 	hTMLEncodedRegexString           = `&#[x]?([0-9a-fA-F]{2})|(&gt)|(&lt)|(&quot)|(&amp)+[;]?`
 	hTMLRegexString                  = `<[/]?([a-zA-Z]+).*?>`
 	splitParamsRegexString           = `'[^']*'|\S+`
+	chineseTelephoneRegexString      = `^0\d{2,3}-{0,1}[1-9]\d{6,7}$`
+	chineseMobilephoneString         = `^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$`
 )
 
 var (
@@ -98,4 +100,6 @@ var (
 	hTMLEncodedRegex           = regexp.MustCompile(hTMLEncodedRegexString)
 	hTMLRegex                  = regexp.MustCompile(hTMLRegexString)
 	splitParamsRegex           = regexp.MustCompile(splitParamsRegexString)
+	chineseTelephoneRegex      = regexp.MustCompile(chineseTelephoneRegexString)
+	chineseMobilephone         = regexp.MustCompile(chineseMobilephoneString)
 )
