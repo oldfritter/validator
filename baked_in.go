@@ -11,7 +11,6 @@ import (
 	"net/url"
 	"os"
 	"reflect"
-	"regexp"
 	"strconv"
 	"strings"
 	"sync"
@@ -1311,16 +1310,6 @@ func isEmail(fl FieldLevel) bool {
 	return emailRegex.MatchString(fl.Field().String())
 }
 
-// isChineseTelephone is the validation function for validating if the current field's value is a valid chinese telephone number.
-func isChineseTelephone(fl FieldLevel) bool {
-	return regexp.MustCompile(`^0\d{2,3}-{0,1}[1-9]\d{6,7}$`).Match([]byte(fl.Field().String()))
-}
-
-// isChineseMobilephone is the validation function for validating if the current field's value is a valid chinese mobilephone number.
-func isChineseMobilephone(fl FieldLevel) bool {
-	return regexp.MustCompile(`^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$`).Match([]byte(fl.Field().String()))
-}
-
 // IsHSLA is the validation function for validating if the current field's value is a valid HSLA color.
 func isHSLA(fl FieldLevel) bool {
 	return hslaRegex.MatchString(fl.Field().String())
@@ -2295,4 +2284,14 @@ func isIso3166AlphaNumeric(fl FieldLevel) bool {
 		panic(fmt.Sprintf("Bad field type %T", field.Interface()))
 	}
 	return iso3166_1_alpha_numeric[code]
+}
+
+// isChineseTelephone is the validation function for validating if the current field's value is a valid chinese telephone number.
+func isChineseTelephone(fl FieldLevel) bool {
+	return chineseTelephoneRegex.MatchString(fl.Field().String())
+}
+
+// isChineseMobilephone is the validation function for validating if the current field's value is a valid chinese mobilephone number.
+func isChineseMobilephone(fl FieldLevel) bool {
+	return chineseMobilephone.MatchString(fl.Field().String())
 }
