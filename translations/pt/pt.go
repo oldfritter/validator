@@ -1332,6 +1332,19 @@ func RegisterDefaultTranslations(v *validator.Validate, trans ut.Translator) (er
 			},
 		},
 		{
+			tag:         "notin",
+			translation: "{0} não deve ser um de [{1}]",
+			override:    false,
+			customTransFunc: func(ut ut.Translator, fe validator.FieldError) string {
+				s, err := ut.T(fe.Tag(), fe.Field(), fe.Param())
+				if err != nil {
+					log.Printf("alerta: erro na tradução FieldError: %#v", fe)
+					return fe.(error).Error()
+				}
+				return s
+			},
+		},
+		{
 			tag:         "json",
 			translation: "{0} deve ser uma string json válida",
 			override:    false,

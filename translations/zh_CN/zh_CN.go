@@ -1319,6 +1319,19 @@ func RegisterDefaultTranslations(v *validator.Validate, trans ut.Translator) (er
 			},
 		},
 		{
+			tag:         "notin",
+			translation: "{0}必须不是[{1}]中的一个",
+			override:    false,
+			customTransFunc: func(ut ut.Translator, fe validator.FieldError) string {
+				s, err := ut.T(fe.Tag(), fe.Field(), fe.Param())
+				if err != nil {
+					log.Printf("警告: 翻译字段错误: %#v", fe)
+					return fe.(error).Error()
+				}
+				return s
+			},
+		},
+		{
 			tag:         "json",
 			translation: "{0}必须是一个JSON字符串",
 			override:    false,

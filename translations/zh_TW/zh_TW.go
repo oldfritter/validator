@@ -1315,6 +1315,19 @@ func RegisterDefaultTranslations(v *validator.Validate, trans ut.Translator) (er
 			},
 		},
 		{
+			tag:         "notin",
+			translation: "{0}必須不是[{1}]中的一個",
+			override:    false,
+			customTransFunc: func(ut ut.Translator, fe validator.FieldError) string {
+				s, err := ut.T(fe.Tag(), fe.Field(), fe.Param())
+				if err != nil {
+					log.Printf("警告: 翻譯欄位錯誤: %#v", fe)
+					return fe.(error).Error()
+				}
+				return s
+			},
+		},
+		{
 			tag:         "datetime",
 			translation: "{0}與{1}格式不匹配",
 			override:    false,

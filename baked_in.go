@@ -177,6 +177,7 @@ var (
 		"fqdn":                    isFQDN,
 		"unique":                  isUnique,
 		"oneof":                   isOneOf,
+		"notin":                   isNotIn,
 		"html":                    isHTML,
 		"html_encoded":            isHTMLEncoded,
 		"url_encoded":             isURLEncoded,
@@ -246,6 +247,30 @@ func isOneOf(fl FieldLevel) bool {
 		}
 	}
 	return false
+}
+
+func isNotIn(fl FieldLevel) bool {
+	vals := parseOneOfParam2(fl.Param())
+
+	field := fl.Field()
+
+	var v string
+	switch field.Kind() {
+	case reflect.String:
+		v = field.String()
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		v = strconv.FormatInt(field.Int(), 10)
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		v = strconv.FormatUint(field.Uint(), 10)
+	default:
+		panic(fmt.Sprintf("Bad field type %T", field.Interface()))
+	}
+	for i := 0; i < len(vals); i++ {
+		if vals[i] == v {
+			return false
+		}
+	}
+	return true
 }
 
 // isUnique is the validation function for validating if each array|slice|map value is unique
